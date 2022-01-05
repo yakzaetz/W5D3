@@ -28,7 +28,7 @@ CREATE TABLE questions (
 CREATE TABLE question_follows (
     id INTEGER PRIMARY KEY,
     user_id INTEGER,
-    question_id INTEGER,
+    question_id INTEGER NOT NULL,
 
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (question_id) REFERENCES questions(id)
@@ -70,3 +70,21 @@ INSERT INTO
 VALUES
     ('Help', 'Cancel my subscription',(SELECT id FROM users WHERE fname = 'Yaakov')),
     ('Maintenance', 'Elevator not working', (SELECT id FROM users WHERE fname = 'Kirby'));
+
+-- INSERT INTO
+--     question_follows (user_id, question_id)
+-- VALUES
+--     (SELECT id 
+--     FROM users 
+--     WHERE fname = 'Yaakov', 
+--     SELECT id 
+--     FROM questions 
+--     WHERE (
+--         SELECT id FROM users WHERE fname = 'Yaakov'
+--     )
+--     ('Maintenance', 'Elevator not working', (SELECT id FROM users WHERE fname = 'Kirby'));
+
+INSERT INTO 
+    replies (question_id, parent_reply_id, user_id, body)
+VALUES
+    
