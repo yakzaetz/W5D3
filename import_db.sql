@@ -71,20 +71,49 @@ VALUES
     ('Help', 'Cancel my subscription',(SELECT id FROM users WHERE fname = 'Yaakov')),
     ('Maintenance', 'Elevator not working', (SELECT id FROM users WHERE fname = 'Kirby'));
 
--- INSERT INTO
---     question_follows (user_id, question_id)
--- VALUES
---     (SELECT id 
---     FROM users 
---     WHERE fname = 'Yaakov', 
---     SELECT id 
---     FROM questions 
---     WHERE (
---         SELECT id FROM users WHERE fname = 'Yaakov'
---     )
---     ('Maintenance', 'Elevator not working', (SELECT id FROM users WHERE fname = 'Kirby'));
+INSERT INTO
+    question_follows (user_id, question_id)
+VALUES
+    ((SELECT id 
+    FROM users 
+    WHERE fname = 'Yaakov'), 
+    (SELECT id 
+    FROM questions 
+    WHERE title = 'Help')),
 
-INSERT INTO 
+    ((SELECT id 
+    FROM users 
+    WHERE fname = 'Kirby'), 
+    (SELECT id 
+    FROM questions 
+    WHERE title = 'Maintenance'));
+
+INSERT INTO
     replies (question_id, parent_reply_id, user_id, body)
 VALUES
+    ((SELECT id FROM questions WHERE title = 'Help'), 
+    NULL, 
+    (SELECT id FROM users WHERE fname = 'Yaakov'),
+    'This is some body text'),
+
+    ((SELECT id FROM questions WHERE title = 'Maintenance'), 
+    NULL, 
+    (SELECT id FROM users WHERE fname = 'Kirby'),
+    'Monkey wrench is the child text');
+
+
+INSERT INTO
+    question_likes (question_id, user_id)
+VALUES
+    ((SELECT id FROM questions WHERE title = 'Help'),
+    (SELECT id FROM users WHERE fname = 'Yaakov')),
+
+    ((SELECT id FROM questions WHERE title = 'Maintenance'),
+    (SELECT id FROM users WHERE fname = 'Kirby'));
+
+
+
+
+
+
     
