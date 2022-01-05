@@ -15,8 +15,7 @@ end
 
 class Users
     def self.find_by_id(id)
-        data = PlayDBConnection.instance.execute("SELECT * FROM plays")
-        data.map { |datum| Play.new(datum) }
+        id = QuestionsDatabase.instance.execute("SELECT id FROM users")
     end 
 end
 
