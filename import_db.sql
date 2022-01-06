@@ -111,9 +111,4 @@ VALUES
     ((SELECT id FROM questions WHERE title = 'Maintenance'),
     (SELECT id FROM users WHERE fname = 'Kirby'));
 
-
-
-
-
-
     
